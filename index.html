@@ -380,8 +380,9 @@ body.audit .concept{background:var(--red)}
 /* ---------- Gifting / checkout / audit pages ---------- */
 .page-hero{padding-block:clamp(36px,6vw,72px) clamp(16px,2vw,28px);position:relative;overflow:hidden}
 .page-hero h1{font-size:clamp(2.6rem,1.3rem + 5.4vw,6.2rem);max-width:12ch;position:relative}
-.page-hero .lede,.page-hero>div{position:relative}
-.page-hero .aura{top:-60%;right:-20%;opacity:calc(var(--aura-o) * .8)}
+.page-hero>:not(.aura){position:relative}
+/* Full-bleed glow that fades out inside the section, so no clipped edges show */
+.page-hero .aura{position:absolute;top:-55%;right:-10%;width:min(80vw,1150px);height:150%;aspect-ratio:auto;filter:none;background:radial-gradient(closest-side,var(--gl),color-mix(in srgb,var(--gl) 42%,transparent) 48%,transparent);opacity:calc(var(--aura-o) * .95)}
 .note-card{border-radius:var(--r-lg);background:var(--surface-2);border:1px solid var(--line);padding:22px 24px;display:grid;gap:6px;position:relative}
 .note-card b{font-size:17px;font-weight:720}
 .note-card span{color:var(--text-2)}
@@ -617,7 +618,7 @@ body.audit [data-kept]{outline:2px dotted var(--text);outline-offset:3px}
 <div class="concept" role="note">
   <div class="wrap">
     <p id="conceptMsg"></p>
-    <p><a href="#/audit">What changed</a>&ensp;&ensp;<a href="https://www.behance.net/gallery/258539387" target="_blank" rel="noopener">Case study</a></p>
+    <p><a href="#/audit">What changed</a>&ensp;&ensp;<a href="https://www.behance.net/gallery/258539387/boAt-A-UX-Brand-Audit-%28Desktop-vs-Mobile%29?platform=direct" target="_blank" rel="noopener">Case study</a></p>
   </div>
 </div>
 
@@ -674,7 +675,7 @@ const IMAGES = {"airdopes-131":"data:image/webp;base64,UklGRtITAABXRUJQVlA4IMYTA
    ========================================================================== */
 
 const LISTED_ON = "16 Nov 2026";
-const BEHANCE = "https://www.behance.net/gallery/258539387";
+const BEHANCE = "https://www.behance.net/gallery/258539387/boAt-A-UX-Brand-Audit-%28Desktop-vs-Mobile%29?platform=direct";
 const GITHUB = "https://github.com/anshikam1245";
 
 const CATS = {
@@ -1484,7 +1485,7 @@ function Gifting() {
   const bands = [["Under ₹1,000", inStock.filter(p => p.price < 1000)], ["₹1,000 to ₹2,000", inStock.filter(p => p.price >= 1000 && p.price < 2000)], ["₹2,000 and up", inStock.filter(p => p.price >= 2000)]];
   return {
     name: "gifting", title: "Gifting | boAt, reimagined",
-    html: `<section class="wrap page-hero cat-speakers" data-fix="D5 D2"><div class="aura" aria-hidden="true"></div><h1 class="display">Give gifts that truly resonate.</h1><p class="lede">Picks for every budget, with the best offer worked out for you at checkout. Buying for a team? Bulk savings start at two items.</p></section>
+    html: `<section class="page-hero cat-speakers"><div class="aura" aria-hidden="true"></div><div class="wrap" data-fix="D5 D2"><h1 class="display">Give gifts that truly resonate.</h1><p class="lede">Picks for every budget, with the best offer worked out for you at checkout. Buying for a team? Bulk savings start at two items.</p></div></section>
     ${bands.map(([t, l]) => railSec(t, `${l.length} picks in stock`, l.slice(0, 8), null)).join("")}
     <section class="wrap sec"><div class="note-card"><b>Gifting 10 or more?</b><span>The cart takes 10% off on its own. No form, no code, and no sign-up before you’ve chosen anything.</span></div></section>`
   };
@@ -1514,8 +1515,8 @@ function AuditIndex() {
   const row = id => { const f = FINDINGS[id]; return `<li class="fx"><span class="fid">${id}</span><div><h3>${esc(f.title)}</h3><p>${esc(f.where)}</p></div><a class="btn sm" href="${f.route}?fix=${id}">See the fix</a></li>`; };
   return {
     name: "audit", title: "What changed | boAt, reimagined",
-    html: `<section class="wrap page-hero cat-watches"><div class="aura" aria-hidden="true"></div><h1 class="display">13 fixes, one store.</h1><p class="lede">I audited boat-lifestyle.com on desktop and mobile in August 2026 and logged 13 problems, two of them critical. This concept fixes every one. Open a fix to see it in place, next to what the live site did.</p>
-      <div style="display:flex;flex-wrap:wrap;gap:10px"><button class="btn primary" type="button" data-audit-toggle data-audit-label aria-pressed="${AUD.on}">${AUD.on ? "Turn off audit view" : "Turn on audit view"}</button><a class="btn" href="${BEHANCE}" target="_blank" rel="noopener">Read the full case study</a></div></section>
+    html: `<section class="page-hero cat-watches"><div class="aura" aria-hidden="true"></div><div class="wrap"><h1 class="display">13 fixes, one store.</h1><p class="lede">I audited boat-lifestyle.com on desktop and mobile in August 2026 and logged 13 problems, two of them critical. This concept fixes every one. Open a fix to see it in place, next to what the live site did.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px"><button class="btn primary" type="button" data-audit-toggle data-audit-label aria-pressed="${AUD.on}">${AUD.on ? "Turn off audit view" : "Turn on audit view"}</button><a class="btn" href="${BEHANCE}" target="_blank" rel="noopener">Read the full case study</a></div></div></section>
     <section class="wrap">${groups.map(([sev, l]) => `<div class="fix-group"><h2>${sev} <span class="muted" style="font-weight:500">(${l.length})</span></h2><ul class="plain-list">${l.map(row).join("")}</ul></div>`).join("")}</section>
     <section class="wrap sec"><div class="two-up">
       <div><h2 class="h-sub">Kept from the live site</h2><ul class="plain-list">${Object.keys(KEPT).map(k => `<li><b>${esc(KEPT[k].title)}</b><span>${esc(KEPT[k].text)}</span></li>`).join("")}</ul></div>

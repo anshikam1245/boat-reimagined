@@ -5,7 +5,7 @@ A working concept store built from my UX audit of boat-lifestyle.com. The audit 
 It opens in dark mode; the sun/moon button switches to light, and the choice is remembered.
 
 - Live concept: https://anshikam1245.github.io/boat-reimagined/
-- Full case study: https://www.behance.net/gallery/258539387
+- Full case study: [boAt: A UX Brand Audit (Desktop vs Mobile) on Behance](https://www.behance.net/gallery/258539387/boAt-A-UX-Brand-Audit-%28Desktop-vs-Mobile%29?platform=direct)
 
 > Unofficial portfolio project by Anshika Mittal. Not affiliated with or endorsed by boAt / Imagine Marketing Limited. Nothing on the site can be bought, and it collects no data. Prices, ratings and features are as listed on boat-lifestyle.com on 16 Nov 2026. Product photos belong to boAt and its retailers and are used for portfolio purposes.
 
